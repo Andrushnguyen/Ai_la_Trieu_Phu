@@ -17,6 +17,47 @@ def cauhoi():
 def luachon():
     n = int(input("Lua chon cau hoi: "))
     return n
+def choncachchoi():
+    cachchoi = int(input())
+    return cachchoi
+def cachchoi1():
+    global diem
+    quest = cau_hoi['list'][n-1]
+    print(quest["cauhoi"])
+    print(quest["answer1"]+" "+quest["answer2"]+" "+quest["answer3"]+" "+quest["answer4"])
+    answer = input("Chon A/a, B/b, C/c, D/d : " )
+    if answer in quest['correct_answer']:
+       print("Dung")
+       diem = diem + 2
+       print("Diem cua ban la: ", diem)
+    else:
+       diem = diem - 1
+       print("Sai", "so diem la", diem)
+def cachchoi2():
+    global diem
+    quest = cau_hoi['list'][n-1]
+    print(quest["cauhoi"])
+    print(quest["answer1"]+" "+quest["answer2"]+" "+quest["answer3"]+" "+quest["answer4"])
+    answer = input("Chon A/a, B/b, C/c, D/d : " )
+    if answer in quest['correct_answer']:
+       print("Dung")
+       diem = diem + 5
+       print("Diem cua ban la: ", diem)
+    else:
+       diem = diem - diem
+       print("Sai", "so diem la", diem)
+def cachchoi3():
+    global diem
+    quest = cau_hoi['list'][n-1]
+    print(quest["cauhoi"])
+    print(quest["answer1"]+" "+quest["answer2"]+" "+quest["answer3"]+" "+quest["answer4"])
+    answer = input("Chon A/a, B/b, C/c, D/d : " )
+    if answer in quest['correct_answer']:
+       print("Dung")
+       diem = diem + 1
+       print("Diem cua ban la: ", diem)
+    else:
+       print("Sai", "so diem la", diem)
 list_cauhoi = [
     {
         'cauhoi': ch['cauhoi'],
@@ -28,20 +69,37 @@ list_cauhoi = [
     }
     for ch in cau_hoi["list"]
 ]
-while True:
+answered_questions = []
+diem = 0
+print("welcome to Ai La Trieu")
+print("================================")
+
+while len(answered_questions)< 10:
+    print("Xin hay lua chon cach choi")
+    print("================================")
+    print("1. Nhan doi diem nhung bi tru diem khi tra loi sai")
+    print("2. Nhan 5 diem nhung sai se mat het diem")
+    print("3. Choi binh thuong")
+    ncachchoi = choncachchoi()
     cauhoi()
     n = luachon()
-    if 0 < n <= 10:
-       quest = cau_hoi['list'][n-1]
-       print(quest["cauhoi"])
-       print(quest["answer1"]+" "+quest["answer2"]+" "+quest["answer3"]+" "+quest["answer4"])
-       answer = input("Chon A/a, B/b, C/c, D/d : " )
-       if answer in quest['correct_answer']:
-        print("Dung")
-        cau_hoi['diem'] = cau_hoi['diem'] + 1
-        print("Diem cua ban la: ", cau_hoi['diem'])
-       else:
-        print("Sai")
+    if n in answered_questions:
+            print("Ban da tra loi cau hoi nay roi. Vui long chon cau hoi khac.")
+            continue
+    elif 0 < n <= 10 and ncachchoi == 1:
+        cachchoi1()
+        answered_questions.append(n)
+    elif 0 < n <= 10 and ncachchoi == 2:
+        cachchoi2()
+        answered_questions.append(n)
+    elif 0 < n <= 10 and ncachchoi == 3:
+        cachchoi3()
+        answered_questions.append(n)
     else:
         print("Khong hop le, chon lai")
         continue 
+print("================================")
+name = input("Nhap ten cua ban: ")
+userinfo = {'name': name, 'score': diem}
+with open("user_info.json", "a") as f:
+    json.dump(userinfo, f)
