@@ -123,7 +123,7 @@ def update_leaderboard(name, diem):
             break
 
     if existing_player:
-        existing_player["score"] = max(existing_player["score"], score)  
+        existing_player["diem"] = max(existing_player["diem"], diem)  
     else:
         user_info["thongtin"].append({"name": name, "diem": diem})
 
@@ -142,7 +142,7 @@ def display_leaderboard(top_n=10):
 
     print("=================== Leaderboard ===================")
     if len(user_info["thongtin"]) == 0:
-        print("No players on the leaderboard yet. Play some games!")
+        print("chua co xep hang")
     else:
         for i, player in enumerate(user_info["thongtin"][:top_n]):
             print(f"{i+1}. {player['name']}: {player['diem']}")
