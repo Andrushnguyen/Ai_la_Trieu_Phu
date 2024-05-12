@@ -24,7 +24,10 @@ def cachchoi1():
     global diem
     quest = cau_hoi['list'][n-1]
     print(quest["cauhoi"])
-    print(quest["answer1"]+" "+quest["answer2"]+" "+quest["answer3"]+" "+quest["answer4"])
+    print(quest["answer1"])
+    print(quest["answer2"])
+    print(quest["answer3"])
+    print(quest["answer4"])
     answer = input("Chon A/a, B/b, C/c, D/d : " )
     if answer in quest['correct_answer']:
        print("Dung")
@@ -37,7 +40,10 @@ def cachchoi2():
     global diem
     quest = cau_hoi['list'][n-1]
     print(quest["cauhoi"])
-    print(quest["answer1"]+" "+quest["answer2"]+" "+quest["answer3"]+" "+quest["answer4"])
+    print(quest["answer1"])
+    print(quest["answer2"])
+    print(quest["answer3"])
+    print(quest["answer4"])
     answer = input("Chon A/a, B/b, C/c, D/d : " )
     if answer in quest['correct_answer']:
        print("Dung")
@@ -50,7 +56,10 @@ def cachchoi3():
     global diem
     quest = cau_hoi['list'][n-1]
     print(quest["cauhoi"])
-    print(quest["answer1"]+" "+quest["answer2"]+" "+quest["answer3"]+" "+quest["answer4"])
+    print(quest["answer1"])
+    print(quest["answer2"])
+    print(quest["answer3"])
+    print(quest["answer4"])   
     answer = input("Chon A/a, B/b, C/c, D/d : " )
     if answer in quest['correct_answer']:
        print("Dung")
@@ -74,7 +83,7 @@ diem = 0
 print("welcome to Ai La Trieu")
 print("================================")
 
-while len(answered_questions)< 10:
+while len(answered_questions)< 2:
     print("Xin hay lua chon cach choi")
     print("================================")
     print("1. Nhan doi diem nhung bi tru diem khi tra loi sai")
@@ -100,6 +109,42 @@ while len(answered_questions)< 10:
         continue 
 print("================================")
 name = input("Nhap ten cua ban: ")
-userinfo = {'name': name, 'score': diem}
-with open("user_info.json", "a") as f:
-    json.dump(userinfo, f)
+def update_leaderboard(name, diem):
+    try:
+        with open("leaderboard.json", "r") as f:
+            user_info = json.load(f)
+    except FileNotFoundError:
+        user_info = {"thongtin": []}
+
+    existing_player = None
+    for player in user_info["thongtin"]:
+        if player["name"] == name:
+            existing_player = player
+            break
+
+    if existing_player:
+        existing_player["score"] = max(existing_player["score"], score)  
+    else:
+        user_info["thongtin"].append({"name": name, "diem": diem})
+
+    user_info["thongtin"].sort(key=lambda player: player["diem"], reverse=True)
+
+    with open("leaderboard.json", "w") as f:
+        json.dump(user_info, f, indent=4) 
+
+def display_leaderboard(top_n=10):
+    try:
+        with open("leaderboard.json", "r") as f:
+            user_info = json.load(f)
+    except FileNotFoundError:
+        print("Leaderboard is empty.")
+        return
+
+    print("=================== Leaderboard ===================")
+    if len(user_info["thongtin"]) == 0:
+        print("No players on the leaderboard yet. Play some games!")
+    else:
+        for i, player in enumerate(user_info["thongtin"][:top_n]):
+            print(f"{i+1}. {player['name']}: {player['diem']}")
+update_leaderboard(name, diem)
+display_leaderboard()
