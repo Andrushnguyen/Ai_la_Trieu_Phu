@@ -30,12 +30,12 @@ def cachchoi1():
     print(quest["answer4"])
     answer = input("Chon A/a, B/b, C/c, D/d : " )
     if answer in quest['correct_answer']:
-       print("Dung")
+       print("Dung ban duoc cong 2 diem")
        diem = diem + 2
        print("Diem cua ban la: ", diem)
     else:
        diem = diem - 1
-       print("Sai", "so diem la", diem)
+       print("Sai, ban mat 1 diem", "so diem la", diem)
 def cachchoi2():
     global diem
     quest = cau_hoi['list'][n-1]
@@ -46,12 +46,12 @@ def cachchoi2():
     print(quest["answer4"])
     answer = input("Chon A/a, B/b, C/c, D/d : " )
     if answer in quest['correct_answer']:
-       print("Dung")
+       print("Dung, ban duoc cong 5 diem")
        diem = diem + 5
        print("Diem cua ban la: ", diem)
     else:
        diem = diem - diem
-       print("Sai", "so diem la", diem)
+       print("Sai, ban mat het diem", "so diem la", diem)
 def cachchoi3():
     global diem
     quest = cau_hoi['list'][n-1]
@@ -62,7 +62,7 @@ def cachchoi3():
     print(quest["answer4"])   
     answer = input("Chon A/a, B/b, C/c, D/d : " )
     if answer in quest['correct_answer']:
-       print("Dung")
+       print("Dung ban duoc cong 1 diem")
        diem = diem + 1
        print("Diem cua ban la: ", diem)
     else:
@@ -82,7 +82,9 @@ answered_questions = []
 diem = 0
 print("welcome to Ai La Trieu")
 print("================================")
-
+print("Co 10 cau hoi cung voi 3 cach choi")
+print("Moi cach choi se nhan duoc so diem khac nhau")
+print("Kiem duoc nhieu diem nhat de duoc xep hang")
 while len(answered_questions)< 2:
     print("Xin hay lua chon cach choi")
     print("================================")
